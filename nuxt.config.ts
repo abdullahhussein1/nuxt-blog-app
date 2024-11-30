@@ -6,7 +6,12 @@ export default defineNuxtConfig({
     assets: "/<rootDir>/assets",
   },
   css: ["~/assets/css/tailwind.css"],
-  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "@nuxtjs/color-mode"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "shadcn-nuxt",
+    "@nuxtjs/color-mode",
+    "nuxt-lucide-icons",
+  ],
   shadcn: {
     componentDir: "./components/ui",
   },
