@@ -1,20 +1,18 @@
-<script setup lang="ts">
+<script setup>
 import { AutoForm } from "@/components/ui/auto-form";
 import { Button } from "@/components/ui/button";
 import * as z from "zod";
 
 const config = useRuntimeConfig();
 
-const { data: authors } = await useFetch(
-  `${config.public.apiBaseUrl}/api/authors`,
-  {
-    headers: {
-      "x-key": config.public.apiKey,
-    },
-  }
-);
+const { data } = await useFetch(`${config.public.apiBaseUrl}/api/authors`, {
+  headers: {
+    "x-key": config.public.apiKey,
+  },
+});
 
-console.log(JSON.parse(JSON.stringify(authors.value)));
+const authors = toRaw(data.value).data;
+const authorsNames = authors.map((author) => author.name);
 
 const formSchema = z.object({
   title: z
@@ -37,18 +35,21 @@ const formSchema = z.object({
     .max(100, {
       message: "Content must not be longer than 100 characters.",
     }),
-  author: z.enum(["Muhammed", "ali"]),
-  status: z.enum(["published", "unpublished"]),
+  author: z.enum(authorsNames),
+  status: z.enum(["published", "unpublished"]).default("published"),
 });
 
-function onSubmit(values: Record<string, any>) {
+function onSubmit(values) {
+  const author = authors.find((author) => author.name == values.author);
+  const authorId = Number(author.id);
+
   $fetch(`${config.public.apiBaseUrl}/api/blogs`, {
     method: "post",
     headers: {
       "x-key": config.public.apiKey,
     },
     body: {
-      author_id: 1,
+      author_id: authorId,
       title: values.title,
       content: values.content,
       status: values.status,
