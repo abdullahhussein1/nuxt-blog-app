@@ -1,6 +1,9 @@
 <template>
   <header class="px-6 py-2 flex max-w-screen-lg mx-auto">
-    <NuxtLink to="/" class="flex items-center p-2 gap-2">
+    <NuxtLink
+      to="/"
+      class="flex border-2 border-transparent hover:border-primary/20 hover:bg-primary/5 hover:brightness-110 transition-all rounded-lg items-center p-2 gap-2"
+    >
       <LucideRss class="text-primary" stroke-width="3" />
       <p class="font-black text-lg">Blog App</p>
     </NuxtLink>

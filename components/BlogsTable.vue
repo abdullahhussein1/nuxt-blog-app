@@ -44,7 +44,7 @@ const filteredBlogs = computed(() => {
               <SelectTrigger
                 class="bg-transparent max-w-20 md:max-w-none md:w-32 px-1.5"
               >
-                <SelectValue />
+                <SelectValue placeholder="All" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All</SelectItem>
