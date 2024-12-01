@@ -1,4 +1,5 @@
 <script setup>
+import Badge from "~/components/ui/badge/Badge.vue";
 import { blogs } from "~/data";
 
 const route = useRoute();
@@ -7,10 +8,16 @@ const blog = blogs.find((blog) => blog.id == blogId);
 </script>
 
 <template>
-  <div class="flex flex-col">
-    <p class="leading-7 font-medium text-muted-foreground">
-      {{ blog.author }}
-    </p>
+  <div class="flex flex-col gap-3">
+    <div class="flex items-center gap-2">
+      <p class="leading-7 font-medium text-muted-foreground">
+        {{ blog.author }}
+      </p>
+      <Badge
+        class="text-[11px] border-primary/40 bg-primary/10 hover:bg-primary/20 text-foreground font-medium"
+        >{{ blog.status }}</Badge
+      >
+    </div>
     <h1 class="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl">
       {{ blog.title }}
     </h1>
