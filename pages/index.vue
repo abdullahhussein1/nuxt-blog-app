@@ -1,7 +1,7 @@
 <script setup>
 const config = useRuntimeConfig();
 
-const { data: blogs } = await useFetch(
+const { data: blogs, refresh } = await useFetch(
   `${config.public.apiBaseUrl}/api/blogs`,
   {
     headers: {
@@ -24,6 +24,6 @@ const { data: blogs } = await useFetch(
         ><Button class="font-semibold">Add Blog</Button></NuxtLink
       >
     </div>
-    <BlogsTable :blogs />
+    <BlogsTable :blogs @delete="refresh" />
   </div>
 </template>

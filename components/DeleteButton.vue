@@ -4,8 +4,20 @@ const { blogId } = defineProps<{
   size?: "default" | "sm" | "lg" | "icon" | null | undefined;
 }>();
 
-const handleDelete = (id: number) => {
-  console.log("Delete blog with id:", id);
+const emit = defineEmits(["delete"]);
+
+const config = useRuntimeConfig();
+
+const handleDelete = async (blogId: number) => {
+  await $fetch(`${config.public.apiBaseUrl}/api/blogs/${blogId}`, {
+    method: "delete",
+    headers: {
+      "x-key": config.public.apiKey,
+    },
+    onResponse() {
+      emit("delete");
+    },
+  });
 };
 </script>
 

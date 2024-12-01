@@ -18,6 +18,7 @@ import {
 import type { Blog } from "~/types";
 
 const { blogs } = defineProps<{ blogs: Blog[] }>();
+const emit = defineEmits(["delete"]);
 
 const statusFilter = ref<"all" | "published" | "unpublished">("all");
 
@@ -31,6 +32,7 @@ const filteredBlogs = computed(() => {
 
 <template>
   <div
+    v-if="filteredBlogs.length > 0"
     class="w-full border rounded-3xl overflow-clip bg-secondary/10 backdrop-blur-3xl"
   >
     <Table>
@@ -42,7 +44,7 @@ const filteredBlogs = computed(() => {
             <Select v-model="statusFilter">
               Status:
               <SelectTrigger
-                class="bg-transparent max-w-20 md:max-w-none md:w-32 px-1.5"
+                class="bg-transparent max-w-20 min-w-12 md:max-w-none md:w-32 px-1.5"
               >
                 <SelectValue placeholder="All" />
               </SelectTrigger>
@@ -69,10 +71,21 @@ const filteredBlogs = computed(() => {
           <TableCell>{{ blog.status }}</TableCell>
           <TableCell class="flex items-center gap-1">
             <EditButton :blog-id="blog.id" size="sm" />
-            <DeleteButton :blog-id="blog.id" size="sm" />
+            <DeleteButton
+              :blog-id="blog.id"
+              size="sm"
+              @delete="emit('delete')"
+            />
           </TableCell>
         </TableRow>
       </TableBody>
     </Table>
+  </div>
+  <div
+    v-else
+    class="flex flex-col gap-5 p-5 w-full border rounded-3xl overflow-clip bg-secondary/10 backdrop-blur-2xl items-center text-muted-foreground font-medium justify-center"
+  >
+    <p>No Available Data</p>
+    <LucideCircleOff :size="44" stroke-width="1.5" />
   </div>
 </template>
