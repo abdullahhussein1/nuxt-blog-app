@@ -16,6 +16,7 @@ const handleDelete = async (blogId: number) => {
     },
     onResponse() {
       emit("delete");
+      navigateTo("/");
     },
   });
 };

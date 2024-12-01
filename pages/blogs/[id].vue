@@ -16,6 +16,9 @@ const { data: blog } = await useFetch(
 </script>
 
 <template>
+  <Head
+    ><Title>{{ blog.title }} | Blog App</Title></Head
+  >
   <div class="flex flex-col gap-3">
     <div class="flex items-center gap-2">
       <p class="leading-7 font-medium text-muted-foreground">

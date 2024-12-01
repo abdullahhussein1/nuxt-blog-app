@@ -13,6 +13,9 @@ const { data: blogs, refresh } = await useFetch(
 </script>
 
 <template>
+  <Head>
+    <Title>Blog App</Title>
+  </Head>
   <div class="flex flex-col gap-5">
     <div class="flex items-center justify-between">
       <h1
