@@ -40,11 +40,6 @@ const filteredBlogs = computed(() => {
   return blogs.filter((blog) => blog.status === statusFilter.value);
 });
 
-const handleEdit = (id: number) => {
-  console.log("Edit blog with id:", id);
-  // Implement edit functionality
-};
-
 const handleDelete = (id: number) => {
   console.log("Delete blog with id:", id);
   // Implement delete functionality
@@ -58,11 +53,15 @@ const handleDelete = (id: number) => {
     <Table>
       <TableHeader>
         <TableRow>
+          <TableHead class="hidden md:block"></TableHead>
           <TableHead>Title</TableHead>
           <TableHead class="flex items-center gap-2">
             <Select v-model="statusFilter">
-              <SelectTrigger class="bg-transparent px-1.5">
-                Status
+              Status:
+              <SelectTrigger
+                class="bg-transparent max-w-20 md:max-w-none md:w-32 px-1.5"
+              >
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All</SelectItem>
@@ -75,29 +74,28 @@ const handleDelete = (id: number) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow v-for="blog in filteredBlogs" :key="blog.id">
+        <TableRow v-for="(blog, i) in filteredBlogs" :key="blog.id">
+          <TableCell class="text-sm text-muted-foreground hidden md:block">{{
+            i + 1
+          }}</TableCell>
           <TableCell>{{ blog.title }}</TableCell>
           <TableCell>{{ blog.status }}</TableCell>
-          <TableCell>
+          <TableCell class="flex gap-1">
             <NuxtLink :href="`/blogs/edit/${blog.id}`"
-              ><Button
-                variant="outline"
-                size="sm"
-                class="mr-2"
-                @click="handleEdit(blog.id)"
-              >
-                Edit
-              </Button></NuxtLink
-            >
+              ><Button variant="outline" size="sm" class="hidden md:block">
+                Edit </Button
+              ><Button variant="outline" size="icon" class="md:hidden">
+                <LucideEdit3 /> </Button
+            ></NuxtLink>
             <AlertDialog>
               <AlertDialogTrigger as-child>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  @click="handleDelete(blog.id)"
-                >
-                  Delete
-                </Button>
+                <div>
+                  <Button variant="outline" size="sm" class="hidden md:block">
+                    Delete </Button
+                  ><Button variant="outline" size="icon" class="md:hidden">
+                    <LucideTrash />
+                  </Button>
+                </div>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
@@ -109,7 +107,9 @@ const handleDelete = (id: number) => {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>Continue</AlertDialogAction>
+                  <AlertDialogAction @click="handleDelete(blog.id)"
+                    >Continue</AlertDialogAction
+                  >
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
