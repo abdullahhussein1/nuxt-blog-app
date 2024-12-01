@@ -1,14 +1,13 @@
 <script setup>
-import { blogs } from "~/data";
-// const { data: blogs } = useFetch(
-//   "http://blog-panel.suly-soft.com.www67.your-server.de/api/blogs",
-//   {
-//     headers: {
-//       "x-key": "44bf6c39-4b23-3b43-89ef-b07af6f67cad",
-//     },
-//     transform: (_products) => _products.data,
-//   }
-// );
+const { data: blogs } = await useFetch(
+  "http://blog-panel.suly-soft.com.www67.your-server.de/api/blogs",
+  {
+    headers: {
+      "x-key": "44bf6c39-4b23-3b43-89ef-b07af6f67cad",
+    },
+    transform: (_blogs) => _blogs.data,
+  }
+);
 </script>
 
 <template>
