@@ -3,11 +3,13 @@ import { AutoForm } from "@/components/ui/auto-form";
 import { Button } from "@/components/ui/button";
 import * as z from "zod";
 
+const config = useRuntimeConfig();
+
 const { data: authors } = await useFetch(
-  "http://blog-panel.suly-soft.com.www67.your-server.de/api/authors",
+  `${config.public.apiBaseUrl}/api/authors`,
   {
     headers: {
-      "x-key": "44bf6c39-4b23-3b43-89ef-b07af6f67cad",
+      "x-key": config.public.apiKey,
     },
   }
 );
@@ -40,10 +42,10 @@ const formSchema = z.object({
 });
 
 function onSubmit(values: Record<string, any>) {
-  $fetch("http://blog-panel.suly-soft.com.www67.your-server.de/api/blogs", {
+  $fetch(`${config.public.apiBaseUrl}/api/blogs`, {
     method: "post",
     headers: {
-      "x-key": "44bf6c39-4b23-3b43-89ef-b07af6f67cad",
+      "x-key": config.public.apiKey,
     },
     body: {
       author_id: 1,

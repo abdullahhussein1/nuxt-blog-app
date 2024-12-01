@@ -1,9 +1,11 @@
 <script setup>
+const config = useRuntimeConfig();
+
 const { data: blogs } = await useFetch(
-  "http://blog-panel.suly-soft.com.www67.your-server.de/api/blogs",
+  `${config.public.apiBaseUrl}/api/blogs`,
   {
     headers: {
-      "x-key": "44bf6c39-4b23-3b43-89ef-b07af6f67cad",
+      "x-key": config.public.apiKey,
     },
     transform: (_blogs) => _blogs.data,
   }

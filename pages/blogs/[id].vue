@@ -3,12 +3,13 @@ import Badge from "~/components/ui/badge/Badge.vue";
 
 const route = useRoute();
 const blogId = route.params.id;
+const config = useRuntimeConfig();
 
 const { data: blog } = await useFetch(
-  `http://blog-panel.suly-soft.com.www67.your-server.de/api/blogs/${blogId}`,
+  `${config.public.apiBaseUrl}/api/blogs/${blogId}`,
   {
     headers: {
-      "x-key": "44bf6c39-4b23-3b43-89ef-b07af6f67cad",
+      "x-key": config.public.apiKey,
     },
   }
 );
