@@ -2,7 +2,7 @@ export type Blog = {
   id: number;
   title: string;
   content: string;
-  status: string;
+  status: "published" | "unpublished";
   author: string;
 };
 

@@ -29,10 +29,9 @@ const filteredBlogs = computed(() => {
   return blogs.filter((blog) => blog.status === statusFilter.value);
 });
 </script>
-
 <template>
   <div
-    v-if="filteredBlogs.length > 0"
+    v-if="filteredBlogs?.length > 0"
     class="w-full border rounded-3xl overflow-clip bg-secondary/10 backdrop-blur-3xl"
   >
     <Table>
